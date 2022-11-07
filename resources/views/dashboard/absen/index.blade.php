@@ -33,7 +33,7 @@
                         <td>{{ $a->jam_masuk }}</td>
                         <td>{{ $a->terlambat }}</td>
                         <td>{{ $a->tanggal }}</td>
-                        <td><a href="{{ route('absen_header', $a->id) }}" class="btn btn-primary">Detail</a>
+                        <td class="d-flex"><a href="{{ route('absen_header', $a->id) }}" class="btn btn-primary">Detail</a>
                             @if (!$a->jam_keluar)
                                 <form action="{{ route('pulang') }}" method="POST">
                                     @method('PATCH')
@@ -41,7 +41,7 @@
                                     <?php date_default_timezone_set('Asia/Jakarta'); ?>
                                     <input type="hidden" value="{{ $a->id }}" name="id" id="id" />
                                     <input type="hidden" value="{{ date('G:i:s') }}" name="jam_keluar" id="jam_keluar" />
-                                    <button class="btn btn-success">Pulang</button>
+                                    <button class="btn btn-success mx-2">Pulang</button>
                                 </form>
                             @endif
 
@@ -62,7 +62,7 @@
                                     <?php date_default_timezone_set('Asia/Jakarta'); ?>
                                     <input type="hidden" value="{{ $a->id }}" name="id" id="id" />
                                     <input type="hidden" value="{{ date('G:i:s') }}" name="jam_masuk" id="jam_masuk" />
-                                    <button class="btn btn-danger">Selesai Istirahat</button>
+                                    <button class="btn btn-danger mx-1">Selesai Istirahat</button>
                                 </form>
                             @endif
                         </td>
