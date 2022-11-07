@@ -24,28 +24,28 @@ class AbsenController extends Controller
         $jam_masuk = $request->jam_masuk;
         $jam_absen = '08:00:00';
 
-        if($jam_absen <= $jam_masuk){
+        if ($jam_absen <= $jam_masuk) {
             $detik = (strtotime($jam_masuk) - strtotime($jam_absen));
             $hour = floor($detik / (60 * 60));
-            $menit = $detik - $hour * (60 * 60); 
+            $menit = $detik - $hour * (60 * 60);
             $result = 'terlambat';
-            $hasil = 'Terlambat '.$hour.'jam'.floor( $menit / 60 ).'menit';
-        } elseif ($jam_absen >= $jam_masuk){
+            $hasil = 'Terlambat ' . $hour . 'jam' . floor($menit / 60) . 'menit';
+        } elseif ($jam_absen >= $jam_masuk) {
             $detik = (strtotime($jam_absen) - strtotime($jam_masuk));
             $hour = floor($detik / (60 * 60));
-            $menit = $detik - $hour * (60 * 60); 
-            $hasil = 'Awal waktu berupa '.$hour.'jam'.floor( $menit / 60 ).'menit';
-        } elseif ($jam_absen == $jam_masuk){
+            $menit = $detik - $hour * (60 * 60);
+            $hasil = 'Awal waktu berupa ' . $hour . 'jam' . floor($menit / 60) . 'menit';
+        } elseif ($jam_absen == $jam_masuk) {
             $detik = (strtotime($jam_absen) - strtotime($jam_masuk));
             $hour = floor($detik / (60 * 60));
-            $menit = $detik - $hour * (60 * 60); 
-            $hasil = 'Tepat waktu '.$hour.'jam'.floor( $menit / 60 ).'menit';
+            $menit = $detik - $hour * (60 * 60);
+            $hasil = 'Tepat waktu ' . $hour . 'jam' . floor($menit / 60) . 'menit';
         }
         //memotong gaji karyawan
-        if($result == 'terlambat'){
-           $karyawan = Karyawan::findOrfail($request->karyawan_id);
-           $potongan = $karyawan->gaji * 0.01;
-           $karyawan->update(['gaji' => $karyawan->gaji - $potongan]);
+        if ($result == 'terlambat') {
+            $karyawan = Karyawan::findOrfail($request->karyawan_id);
+            $potongan = $karyawan->gaji * 0.01;
+            $karyawan->update(['gaji' => $karyawan->gaji - $potongan]);
         }
         $data = [
             'divisi_id' => $request->divisi_id,
@@ -57,7 +57,6 @@ class AbsenController extends Controller
         Absen::create($data);
 
         return redirect('/absen')->with('success', 'Thanks You for you absen');
-
     }
 
     public function absenpulang(Request $request)
@@ -65,23 +64,23 @@ class AbsenController extends Controller
         $jam_keluar = $request->jam_keluar;
         $jam_absen = '17:00:00';
 
-        if($jam_absen <= $jam_keluar){
+        if ($jam_absen <= $jam_keluar) {
             $detik = (strtotime($jam_absen) - strtotime($jam_keluar));
             $hour = floor($detik / (60 * 60));
-            $menit = $detik - $hour * (60 * 60); 
-            $hasil = 'Lembur '.$hour.'jam'.floor( $menit / 60 ).'menit';
-        } elseif ($jam_absen >= $jam_keluar ){
+            $menit = $detik - $hour * (60 * 60);
+            $hasil = 'Lembur ' . $hour . 'jam' . floor($menit / 60) . 'menit';
+        } elseif ($jam_absen >= $jam_keluar) {
             $detik = (strtotime($jam_keluar) - strtotime($jam_absen));
             $hour = floor($detik / (60 * 60));
-            $menit = $detik - $hour * (60 * 60); 
-            $hasil = 'Kurang disiplin karena kurang '.$hour.'jam'.floor( $menit / 60 ).'menit';
-        } elseif ($jam_absen == $jam_keluar){
+            $menit = $detik - $hour * (60 * 60);
+            $hasil = 'Kurang disiplin karena kurang ' . $hour . 'jam' . floor($menit / 60) . 'menit';
+        } elseif ($jam_absen == $jam_keluar) {
             $detik = (strtotime($jam_absen) - strtotime($jam_keluar));
             $hour = floor($detik / (60 * 60));
-            $menit = $detik - $hour * (60 * 60); 
-            $hasil = 'Disiplin '.$hour.'jam'.floor( $menit / 60 ).'menit';
+            $menit = $detik - $hour * (60 * 60);
+            $hasil = 'Disiplin ' . $hour . 'jam' . floor($menit / 60) . 'menit';
         }
-        
+
         $data = [
             'jam_keluar' => $jam_keluar,
             'pulang_awal' => $hasil,
@@ -98,7 +97,6 @@ class AbsenController extends Controller
         ];
         Absen::where('id', $request->id)->update($data);
         return redirect('/absen')->with('success', 'Thanks You ! Selamat beristirahat');
-
     }
 
     public function selesaiIstirahat(Request $request)

@@ -22,7 +22,7 @@ Route::get('/', function () {
 
 Route::get('/dashboard', [DashboardController::class, 'index']);
 Route::get('/databsen/{absen:id}', [DashboardController::class, 'header'])->name('absen_header');
-Route::get('/pulang', [DashboardController::class, 'gohome']);
+
 Route::get('/absen', [AbsenController::class, 'index']);
 Route::post('/absen', [AbsenController::class, 'store']);
 Route::get('/jampulang', [AbsenController::class, 'pulang']);

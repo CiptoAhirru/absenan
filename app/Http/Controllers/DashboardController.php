@@ -15,7 +15,6 @@ class DashboardController extends Controller
             'title' => 'dashboard',
             'absen' => Absen::all(),
         ]);
-
     }
     public function header(Absen $absen)
     {
@@ -23,7 +22,5 @@ class DashboardController extends Controller
         $title = 'Absen List';
 
         return view('dashboard.absen.absen', compact('absen', 'title'));
-
     }
-
 }

@@ -9,7 +9,7 @@ class Divisi extends Model
 {
     use HasFactory;
     protected $guarded = ['id'];
-    
+
     public function absen()
     {
         return $this->hasMany(Absen::class);
