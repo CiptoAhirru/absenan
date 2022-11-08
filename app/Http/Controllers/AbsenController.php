@@ -43,19 +43,27 @@ class AbsenController extends Controller
             $hasil = 'Tepat waktu ' . $hour . 'jam' . floor($menit / 60) . 'menit';
         }
         //memotong gaji karyawan
+        $karyawan = Karyawan::findOrfail($request->karyawan_id);
+        $gaji = $karyawan->gaji;
         if ($result == 'terlambat') {
-            $karyawan = Karyawan::findOrfail($request->karyawan_id);
             $potongan = $karyawan->gaji * 0.01;
-            $karyawan->update(['gaji' => $karyawan->gaji - $potongan]);
+            $hasilPotongan = $gaji - $potongan;
+        } else {
+            $potongan = 0;
+            $hasilPotongan = $gaji - $potongan;
         }
         $data = [
             'divisi_id' => $request->divisi_id,
             'karyawan_id' => $request->karyawan_id,
+            'gaji' => $hasilPotongan,
+            'potongan' => $potongan,
             'jam_masuk' => $jam_masuk,
             'terlambat' => $hasil,
             'tanggal' => date(now())
         ];
         Absen::create($data);
+
+
 
         return redirect('/absen')->with('success', 'Thanks You for you absen');
     }

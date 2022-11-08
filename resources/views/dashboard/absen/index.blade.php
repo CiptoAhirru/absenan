@@ -31,11 +31,16 @@
                     <th scope="col">Nama Karyawan</th>
                     <th scope="col">Jam Absen</th>
                     <th scope="col">Terlambat</th>
+                    <th scope="col">Gaji Harian</th>
+                    <th scope="col">Potongan</th>
                     <th scope="col">Tanggal</th>
                     <th scope="col">Action</th>
                 </tr>
             </thead>
             <tbody>
+                <?php
+                $total = 0;
+                ?>
                 @foreach ($absen as $a)
                     <tr>
                         <td>{{ $loop->iteration }}</td>
@@ -43,8 +48,11 @@
                         <td>{{ $a->karyawan->name }}</td>
                         <td>{{ $a->jam_masuk }}</td>
                         <td>{{ $a->terlambat }}</td>
+                        <td>@currency($a->gaji)</td>
+                        <td>@currency($a->potongan)</td>
                         <td>{{ $a->tanggal }}</td>
-                        <td class="d-flex"><a href="{{ route('absen_header', $a->id) }}" class="btn btn-primary">Detail</a>
+                        <td class="d-flex"><a href="{{ route('absen_header', $a->id) }}"
+                                class="badge text-bg-success">Detail</a>
                             @if (!$a->jam_keluar)
                                 <form action="{{ route('pulang') }}" method="POST">
                                     @method('PATCH')
@@ -52,7 +60,7 @@
                                     <?php date_default_timezone_set('Asia/Jakarta'); ?>
                                     <input type="hidden" value="{{ $a->id }}" name="id" id="id" />
                                     <input type="hidden" value="{{ date('G:i:s') }}" name="jam_keluar" id="jam_keluar" />
-                                    <button class="btn btn-success mx-2">Pulang</button>
+                                    <button class="badge text-bg-primary mx-2">Pulang</button>
                                 </form>
                             @endif
 
@@ -63,7 +71,7 @@
                                     <?php date_default_timezone_set('Asia/Jakarta'); ?>
                                     <input type="hidden" value="{{ $a->id }}" name="id" id="id" />
                                     <input type="hidden" value="{{ date('G:i:s') }}" name="istirahat" id="istirahat" />
-                                    <button class="btn btn-warning">Istirahat</button>
+                                    <button class="badge text-bg-warning">Istirahat</button>
                                 </form>
                             @endif
                             @if (!$a->selesai_istirahat && $a->jam_istirahat)
@@ -73,13 +81,27 @@
                                     <?php date_default_timezone_set('Asia/Jakarta'); ?>
                                     <input type="hidden" value="{{ $a->id }}" name="id" id="id" />
                                     <input type="hidden" value="{{ date('G:i:s') }}" name="jam_masuk" id="jam_masuk" />
-                                    <button class="btn btn-danger mx-1">Selesai Istirahat</button>
+                                    <button class="badge text-bg-danger mx-1">Selesai Istirahat</button>
                                 </form>
                             @endif
                         </td>
                         {{-- <td><a href="{{ route('pulang') }}" class="btn btn-primary">Absen Pulang</a></td> --}}
                     </tr>
+                    <?php
+                    $total += $a->gaji;
+                    ?>
                 @endforeach
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>@currency($total)</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
             </tbody>
         </table>
     </div>

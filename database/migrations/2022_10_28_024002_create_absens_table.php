@@ -17,6 +17,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('divisi_id');
             $table->foreignId('karyawan_id');
+            $table->string('gaji');
+            $table->string('potongan')->nullable();
             $table->time('jam_masuk');
             $table->string('terlambat');
             $table->time('jam_keluar')->nullable();
