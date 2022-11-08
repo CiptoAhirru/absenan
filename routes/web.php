@@ -24,6 +24,7 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', [DashboardController::class, 'index']);
+Route::get('/dashboard/laporan', [DashboardController::class, 'laporan']);
 Route::get('/databsen/{absen:id}', [DashboardController::class, 'header'])->name('absen_header');
 Route::get('/search', [DashboardController::class, 'search']);
 Route::get('/absen', [AbsenController::class, 'index']);

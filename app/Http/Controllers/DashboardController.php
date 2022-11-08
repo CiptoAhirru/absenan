@@ -37,4 +37,12 @@ class DashboardController extends Controller
 
         return view('dashboard.absen.index', compact('absen'));
     }
+
+    public function laporan()
+    {
+        return view('dashboard.absen.laporan', [
+            'title' => 'Laporan',
+            'absen' => Absen::all(),
+        ]);
+    }
 }

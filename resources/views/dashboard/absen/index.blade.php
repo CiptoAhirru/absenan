@@ -31,16 +31,11 @@
                     <th scope="col">Nama Karyawan</th>
                     <th scope="col">Jam Absen</th>
                     <th scope="col">Terlambat</th>
-                    <th scope="col">Gaji Harian</th>
-                    <th scope="col">Potongan</th>
                     <th scope="col">Tanggal</th>
                     <th scope="col">Action</th>
                 </tr>
             </thead>
             <tbody>
-                <?php
-                $total = 0;
-                ?>
                 @foreach ($absen as $a)
                     <tr>
                         <td>{{ $loop->iteration }}</td>
@@ -48,8 +43,6 @@
                         <td>{{ $a->karyawan->name }}</td>
                         <td>{{ $a->jam_masuk }}</td>
                         <td>{{ $a->terlambat }}</td>
-                        <td>@currency($a->gaji)</td>
-                        <td>@currency($a->potongan)</td>
                         <td>{{ $a->tanggal }}</td>
                         <td class="d-flex"><a href="{{ route('absen_header', $a->id) }}"
                                 class="badge text-bg-success">Detail</a>
@@ -87,21 +80,7 @@
                         </td>
                         {{-- <td><a href="{{ route('pulang') }}" class="btn btn-primary">Absen Pulang</a></td> --}}
                     </tr>
-                    <?php
-                    $total += $a->gaji;
-                    ?>
                 @endforeach
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td>@currency($total)</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
             </tbody>
         </table>
     </div>

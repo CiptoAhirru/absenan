@@ -8,6 +8,13 @@
                 </a>
             </li>
             <li class="nav-item">
+                <a class="nav-link {{ Request::is('dashboard/laporan') ? 'active' : '' }}" aria-current="page"
+                    href="/dashboard/laporan">
+                    <span data-feather="file" class="align-text-bottom"></span>
+                    Laporan
+                </a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link {{ Request::is('karyawan') ? 'active' : '' }}" aria-current="page" href="/karyawan">
                     <span data-feather="file" class="align-text-bottom"></span>
                     Data Karyawan
