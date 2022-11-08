@@ -6,6 +6,7 @@ use App\Models\Absen;
 use App\Models\AbsenPulang;
 use App\Models\Divisi;
 use App\Models\Karyawan;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class AbsenController extends Controller
@@ -24,13 +25,13 @@ class AbsenController extends Controller
         $jam_masuk = $request->jam_masuk;
         $jam_absen = '08:00:00';
 
-        if ($jam_absen <= $jam_masuk) {
+        if ($jam_absen < $jam_masuk) {
             $detik = (strtotime($jam_masuk) - strtotime($jam_absen));
             $hour = floor($detik / (60 * 60));
             $menit = $detik - $hour * (60 * 60);
             $result = 'terlambat';
             $hasil = 'Terlambat ' . $hour . 'jam' . floor($menit / 60) . 'menit';
-        } elseif ($jam_absen >= $jam_masuk) {
+        } elseif ($jam_absen > $jam_masuk) {
             $detik = (strtotime($jam_absen) - strtotime($jam_masuk));
             $hour = floor($detik / (60 * 60));
             $menit = $detik - $hour * (60 * 60);

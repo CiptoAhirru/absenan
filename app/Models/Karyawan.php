@@ -9,8 +9,14 @@ class Karyawan extends Model
 {
     use HasFactory;
     protected $guarded = ['id'];
+
     public function absen()
     {
         return $this->hasMany(Absen::class);
+    }
+
+    public function getRouteKeyName()
+    {
+        return 'slug';
     }
 }

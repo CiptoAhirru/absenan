@@ -2,7 +2,7 @@
 
 @section('container')
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">{{ $title }}</h1>
+        <h1 class="h2"> Absen </h1>
     </div>
 
     @if (session()->has('success'))
@@ -10,6 +10,17 @@
             {{ session('success') }}
         </div>
     @endif
+
+    <h2 class="fs-3 text-center my-3">Data Harian Absen Karyawan</h2>
+    <div class="my-2">
+        <form action="/search" method="GET">
+            <div class="input-group mb-3">
+                <input type="date" class="form-control" name="start_date" value="{{ request('start_date') }}">
+                <input type="date" class="form-control" name="end_date" value="{{ request('end_date') }}">
+                <button class="btn btn-primary" type="submit">GET</button>
+            </div>
+        </form>
+    </div>
 
     <div class="table-responsive col-lg-8">
         <table class="table table-striped table-sm">
@@ -55,7 +66,7 @@
                                     <button class="btn btn-warning">Istirahat</button>
                                 </form>
                             @endif
-                            @if (!$a->selesai_istirahat)
+                            @if (!$a->selesai_istirahat && $a->jam_istirahat)
                                 <form action="{{ route('istirahatEnd') }}" method="POST">
                                     @method('PATCH')
                                     @csrf

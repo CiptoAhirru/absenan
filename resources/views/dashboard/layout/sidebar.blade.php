@@ -8,6 +8,12 @@
                 </a>
             </li>
             <li class="nav-item">
+                <a class="nav-link {{ Request::is('karyawan') ? 'active' : '' }}" aria-current="page" href="/karyawan">
+                    <span data-feather="file" class="align-text-bottom"></span>
+                    Data Karyawan
+                </a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" href="/absen">
                     <span data-feather="file-text" class="align-text-bottom"></span>
                     Home
